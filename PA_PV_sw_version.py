@@ -40,5 +40,12 @@ speed_wall_files = [x for x in os.listdir(CSV_folder) if U_prefix in x]
 curv_files = [x for x in os.listdir(CURV_folder) if K_prefix in x]
 dat_files =  [x for x in os.listdir(DAT_folder) if dat_prefix  in x]
 """
-speed_wall_files = file_findall(U_prefix,CSV_folder)
+speed_files = file_findall(U_prefix,CSV_folder)
+dat_files = file_findall(dat_prefix,DAT_folder)
+curv_files = file_findall(K_prefix,CURV_folder)
 
+speed_dict = dict(speed_files)
+dat_dict = dict(dat_files)
+curv_dict  = dict(curv_files)
+match_all = [ [x,speed_dict[x],dat_dict [x],curv_dict[x]] for x in speed_dict.keys() ]
+match_both.sort(key=lambda x:x[0])
