@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import h5py
 
-
+from all_functions import *
 """
 FIle paths:
  some files pathsare need to be changed
@@ -35,9 +35,10 @@ phi = 0.375
 """
 get files for each type of file
 file_list = os.listdir(DAT_folder)
-"""
-speed_wall_files = [x for x in os.listdir(DAT_folder) if U_prefix in x]
+
+speed_wall_files = [x for x in os.listdir(CSV_folder) if U_prefix in x]
 curv_files = [x for x in os.listdir(CURV_folder) if K_prefix in x]
 dat_files =  [x for x in os.listdir(DAT_folder) if dat_prefix  in x]
-
+"""
+speed_wall_files = file_findall(U_prefix,CSV_folder)
 

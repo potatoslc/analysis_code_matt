@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar 23 11:28:59 2025
+
+@author: u0890475
+"""
+
+import os
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+import h5py
+import re
+
+def file_findall(header,directory):
+    file_seq = []
+    file_match_patten = header+r"_(\d+)\.csv"
+    file_list = os.listdir(directory)
+    uin_files =[x for x in file_list if header in x]
+    total_files = len(uin_files)
+
+    
+    for i in range(total_files):
+        temp_filename = uin_files[i]
+        match1= re.search(file_match_patten,temp_filename)
+        if(match1):
+            file_seq.append([int(match1.group(1)),temp_filename])
+            
+        else:
+            continue
+    
+    file_seq.sort(key=lambda x:x[0])
+    return file_seq
