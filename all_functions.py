@@ -124,9 +124,12 @@ def get_flame_info(flame):
         print("flame has erros")
         return 
 
-    
-    return derivative(flame_grid, speed)
+    strain_rate = derivative(flame_grid, speed)
+    max_loc = strain_rate.argmax()
+    thermal_diffus = (flame.thermal_conductivity[max_loc])/(flame.cp_mass[max_loc])/(flame.density[max_loc])
+    sd = flame.velocity[max_loc]
 
+    return sd,thermal_diffus
 
 
 
