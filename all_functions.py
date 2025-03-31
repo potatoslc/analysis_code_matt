@@ -94,7 +94,7 @@ def get_v_gc(paradata_filename,isosurface_filename):
     return [g, float(x_flame_minx),float(y_flame_minx),float(x_minx),float(y_minx),current_time]
 
 
-def build_flame(T,P,phi,fuel,vel):
+def build_flame(T,P,phi,fuel='H2:1',vel=8):
     loglevel = 1
     g = ct.Solution('mechanism.yaml')
     mdotR = vel*g.density
@@ -125,7 +125,7 @@ def get_flame_info(flame):
         return 
 
     strain_rate = derivative(flame_grid, speed)
-    max_loc = strain_rate.argmax()
+    max_loc = np.argmax(strain_rate)
     thermal_diffus = (flame.thermal_conductivity[max_loc])/(flame.cp_mass[max_loc])/(flame.density[max_loc])
     sd = flame.velocity[max_loc]
 
@@ -133,6 +133,56 @@ def get_flame_info(flame):
 
 
 
+def get_gc_data(path):
+    try:
+        df = pd.read_csv(path)
+    except:
+        return
+
+    return df
+
+def mono_plot(x,y,xlabel="",ylabel="",title=""):
+    fig,ax = plt.subplots()
+    ax.plot(x,y,'r')
+    ax.set(xlabel=xlabel,ylabel=ylabel,title=title)
+
+    return fig
+
+def duo_plot_one_scale(x1,y1,x2,y2,label_list= []):
+    labels_ct = len(label_list)
+    if labels_ct ==2:
+        x1_label = label_list[0]
+        y1_label = label_list[1]
+        x2_label = x1_label
+        y2_label = y1_label
+    if labels_ct==3:
+        y2_label = label_list[2]    
+    plt.plot(x1,y1,label=y1_label)
+    plt.plot(x2,y2,label=y2_label)
+    plt.xlabel(x1_label)
+    return plt
+
+def duo_plot_duo_scale(x1,y1,x2,y2,label_list= []):
+    labels_ct = len(label_list)
+    if labels_ct ==2:
+        x1_label = label_list[0]
+        y1_label = label_list[1]
+        x2_label = x1_label
+        y2_label = y1_label
+    if labels_ct==3:
+        y2_label = label_list[2]
+
+    fig, ax1 = plt.subplots()
+    ax1.set_xlabel(x1_label)
+    ax1.set_ylabel(y1_label)
+    ax1.plot(x1,y1,'r')
+    ax1.tick_params(axis='y',labelcolor='r')
+
+    ax2 = ax1.twinx()
+    ax2.set_ylabel(y2_label)
+    ax2.plot(x2,y2,'b')
+    ax2.tick_params(axis='y', labelcolor='b')
 
 
+    return fig
 
