@@ -91,7 +91,7 @@ def get_v_gc(paradata_filename,isosurface_filename):
     dz = float(paradata_df["Points:1"][min_diff_loc])
     g = dv/dz
 
-    return [g, x_flame_minx,y_flame_minx,x_minx,y_minx,current_time]
+    return [g, float(x_flame_minx),float(y_flame_minx),float(x_minx),float(y_minx),current_time]
 
 
 def build_flame(T,P,phi,fuel,vel):
