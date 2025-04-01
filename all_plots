@@ -23,3 +23,26 @@ flame1 = build_flame(300, 101325, 0.375)
 sd,alpha = get_flame_info(flame1)
 dt = [ math.sqrt(alpha/x) for x in gc]
 dc = [sd/x for x in gc]
+da_fb = [ (sd**2)/(x*alpha) for x in gc]
+
+
+"""
+Plot the da_fb vs time
+"""
+plt1 = mono_plot(timesteps, da_fb,xlabel="timestep (s)",ylabel="Da_fb")
+plt1.show()
+
+
+
+"""
+Plot the Dc and Dt vs time
+"""
+plt2 = duo_plot_one_scale(timesteps, dc, timesteps, dt,["timesteps (s)","Dc","Dt"])
+plt2.show()
+
+
+"Plot the flame x position and Da_fb vs time"
+flame_loc = gc_df["x_minx_para"]
+#from all_functions import*
+plt3 =duo_plot_duo_scale(timesteps, flame_loc, timesteps, da_fb,["timesteps (s)","flame x-position (m)","Da_FB"])
+plt3.show()
