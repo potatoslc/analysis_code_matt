@@ -8,6 +8,7 @@ Created on Mon Mar 31 09:07:40 2025
 
 from all_functions import*
 import math
+from blf import Sd_05prev
 
 gc_file_path = '/home/u0890475/Documents/Analysis_Codes_Matt/gc_time.csv'
 gc_df = get_gc_data(gc_file_path)
@@ -22,8 +23,8 @@ plt.show()
 flame1 = build_flame(300, 101325, 0.375)
 sd,alpha = get_flame_info(flame1)
 dt = [ math.sqrt(alpha/x) for x in gc]
-dc = [sd/x for x in gc]
-da_fb = [ (sd**2)/(x*alpha) for x in gc]
+dc = [Sd_05prev/x for x in gc]
+da_fb = [ (Sd_05prev**2)/(x*alpha) for x in gc]
 
 
 """
